@@ -22,7 +22,8 @@ public class SinglyLinkedList<E> implements List<E> {
          * @param n reference to a node that should follow the new node
          */
         public Node(E e, Node<E> n) {
-            // TODO
+            this.element = e; // reference (final) to the first node in list
+            this.next = n; // reference to next node (null if it is last)
         }
 
         // Accessor methods
@@ -33,7 +34,7 @@ public class SinglyLinkedList<E> implements List<E> {
          * @return the element stored at the node
          */
         public E getElement() {
-            return null;
+            return element;
         }
 
         /**
@@ -42,7 +43,9 @@ public class SinglyLinkedList<E> implements List<E> {
          * @return the following node
          */
         public Node<E> getNext() {
-            // TODO
+            if(this.next!=null){
+              return this.next;
+            }
             return null;
         }
 
@@ -54,7 +57,7 @@ public class SinglyLinkedList<E> implements List<E> {
          * @param n the node that should follow this one
          */
         public void setNext(Node<E> n) {
-            // TODO
+            this.next=n; // we assign the reference to the next node the node n (pointer to it)
         }
     } //----------- end of nested Node class -----------
 
@@ -74,55 +77,163 @@ public class SinglyLinkedList<E> implements List<E> {
 
     //@Override
     public int size() {
-        // TODO
-        return 0;
+        int count = 0;
+        Node<E> current = head;
+    
+        while (current != null) {
+            count++;
+            current = current.getNext();
+        }
+        return count;
+        // OBS: we use counter here because size will be updated when adding or taking out nodes (in other methods) - and should be accessed as return size;
     }
 
     //@Override
     public boolean isEmpty() {
-        // TODO
-        return false;
+        return head==null; // we check if the list is empty (first node null)
     }
 
     @Override
     public E get(int position) {
-        // TODO
-        return null;
+        int count=0;
+        Node<E> current = head;
+        if(position<0 || position>=size()){
+          throw new IndexOutOfBoundsException("Invalid index: " + position); // we should throw exceptions instead of null!
+        }
+
+        while(count!=position){
+          count++;
+          current = current.getNext();
+        }
+        return current.getElement(); // when we want to access an element, we should always use the accessor method
     }
 
     @Override
     public void add(int position, E e) {
-        // TODO
+        
+        if(position<0 || position>size()){ // we can also add a node at the end (after the last one)
+          throw new IndexOutOfBoundsException("Invalid index: " + position); // we should throw exceptions instead of null!
+        }
+
+        if(position == 0){ // Case 1: we have to add at the beginning
+          head = new Node<>(e,head);
+        }else{
+          Node<E> current = head;
+
+          for (int i = 0; i < position - 1; i++) { // to add a node at position n, we must go until n-1
+            current = current.getNext();
+        }
+          Node<E> newNode = new Node<>(e, current.getNext()); // we have to actually create a new node - this points to the next reference of the current node
+          current.setNext(newNode); // the current node now points to the new added node
+        }
+        
+        size++;
     }
 
 
     @Override
     public void addFirst(E e) {
-        // TODO
+      head = new Node<>(e, head); // new head now points to the reference of the old head
+      size++;
     }
 
     @Override
     public void addLast(E e) {
-        // TODO
+      Node<E> newNode = new Node<>(e, null); // we actually create the new node, which must point to null (as it will become the last node in the list)
+
+      // Case 1: empty list
+      if (head == null) {
+        head = newNode;
+      }
+      // Case 2: non-empty list
+      else {
+        Node<E> current = head;
+        while (current.getNext() != null) {
+            current = current.getNext();
+        }
+        current.setNext(newNode); // we update the reference of the last node, from null to the new node
     }
+
+    size++;
+  }
 
     @Override
     public E remove(int position) {
-        // TODO
-        return null;
+        
+      if(position<0 || position>=size()){
+        throw new IndexOutOfBoundsException("Invalid index: " + position); // we should throw exceptions instead of null!
+      }
+
+      E removed; // we create the element to be removed
+
+    // Case 1: remove head
+    if (position == 0) {
+        removed = head.getElement(); // first node
+        head = head.getNext();
+    }
+    // Case 2: remove after head
+    else {
+        Node<E> current = head;
+
+        // move to node at index position-1
+        for (int i = 0; i < position - 1; i++) {
+            current = current.getNext();
+        } // after this we will have the reference to the "position-1" node
+
+        Node<E> nodeToRemove = current.getNext(); // nodeToRemove is the reference to the "position" node
+        removed = nodeToRemove.getElement(); // we need this because we have to return the element that is from the node to be removed
+
+        // bypass the removed node
+        current.setNext(nodeToRemove.getNext()); // now current points to the position+1 node
+    }
+
+    size--;
+    return removed;
+
     }
 
     @Override
     public E removeFirst() {
-        // TODO
-        return null;
+
+      if (head == null) {
+        throw new IndexOutOfBoundsException("List is empty");
+      }
+
+      E removed = head.getElement(); // save element
+      head = head.getNext();         // move head
+      size--;
+  
+      return removed; // return removed (saved) element
     }
 
-    @Override
-    public E removeLast() {
-        // TODO
-        return null;
+    @Override // UNDERSTAND THIS ONE!!!!
+  public E removeLast() {
+    if (head == null) {
+        throw new IndexOutOfBoundsException("List is empty");
     }
+
+    // Case 1: only one element
+    if (head.getNext() == null) {
+        E removed = head.getElement();
+        head = null;
+        size--;
+        return removed;
+    }
+
+    // Case 2: 2+ elements: stop at second-last node
+    Node<E> current = head;
+    while (current.getNext().getNext() != null) {
+        current = current.getNext();
+    }
+
+    // current is now the second-last node
+    E removed = current.getNext().getElement();
+    current.setNext(null);   // drop the last node
+    size--;
+
+    return removed;
+}
+
 
     //@Override
     public Iterator<E> iterator() {
@@ -179,3 +290,8 @@ public class SinglyLinkedList<E> implements List<E> {
 
     }
 }
+
+
+// n - reference to the current node
+// n.next - reference to the next node
+// n.element - reference to the DATA stored in the node
