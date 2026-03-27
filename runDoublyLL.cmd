@@ -1,0 +1,2 @@
+javac -cp "junit/lib/*;" src\project20280\interfaces\*.java src\project20280\list\DoublyLinkedList.java src\project20280\list\DoublyLinkedListTest.java
+java -cp "junit/lib/*;src" project20280.list.DoublyLinkedList

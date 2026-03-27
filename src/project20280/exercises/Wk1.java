@@ -10,6 +10,7 @@ public class Wk1 {
         System.out.println(my_array);
 
         //double average = ...;
+        
     }
     public static void main(String [] args) {
         q1();

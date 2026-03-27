@@ -1,0 +1,2 @@
+javac -cp "junit/lib/*;" src\project20280\interfaces\*.java src\project20280\tree\LinkedBinaryTree.java src\project20280\tree\AbstractTree.java src\project20280\tree\AbstractBinaryTree.java src\project20280\stacksqueues\ArrayQueue.java src\project20280\tree\BinaryTreePrinter.java
+java -cp "junit/lib/*;src" project20280.tree.LinkedBinaryTree

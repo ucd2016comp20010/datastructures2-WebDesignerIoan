@@ -5,43 +5,45 @@ import project20280.list.DoublyLinkedList;
 
 public class LinkedStack<E> implements Stack<E> {
 
-    DoublyLinkedList<E> ll;
+  private final DoublyLinkedList<E> ll; // we modify for encapsulation
 
-    public static void main(String[] args) {
-    }
+  public static void main(String[] args) {
+  }
 
-    public LinkedStack() {
-        // TODO
-    }
+  public LinkedStack() { // constructor
+    ll = new DoublyLinkedList<>(); // we initialize the ll variable
+  }
 
-    @Override
-    public int size() {
-        return ll.size();
-    }
+  @Override
+  public int size() {
+    return ll.size(); // obs: we use the size() method from DoublyLinkedList.java file (class)
+  }
 
-    @Override
-    public boolean isEmpty() {
-        return ll.isEmpty();
-    }
+  @Override
+  public boolean isEmpty() {
+    return ll.isEmpty();
+  }
 
-    @Override
-    public void push(E e) {
-        // TODO
-    }
+  @Override
+  public void push(E e) {
+    ll.addFirst(e); // top of stack = first in list
+  }
 
-    @Override
-    public E top() {
-        // TODO
-        return null;
-    }
+  @Override
+  public E top() {
+    return ll.first(); // gets the first element, using the method defined in the DoublyLinkedList
+                       // Class. Null case is handled in that method
+  }
 
-    @Override
-    public E pop() {
-        // TODO
-        return null;
+  @Override
+  public E pop() {
+    if (ll.isEmpty()) {
+      return null; // we make this check, because the method throws IndexOutOfBoundsException
     }
+    return ll.removeFirst();
+  }
 
-    public String toString() {
-        return ll.toString();
-    }
+  public String toString() {
+    return ll.toString(); // we use the already defined method
+  }
 }

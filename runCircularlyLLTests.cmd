@@ -1,0 +1,2 @@
+javac -cp "junit/lib/*;" src\project20280\interfaces\*.java src\project20280\list\CircularlyLinkedList.java src\project20280\list\CircularlyLinkedListTest.java
+java -jar junit\lib\junit-platform-console-standalone-1.10.2.jar execute --class-path src --select-class project20280.list.CircularlyLinkedListTest

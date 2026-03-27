@@ -1,0 +1,2 @@
+javac -cp "junit/lib/*;" src\project20280\interfaces\*.java src\project20280\list\LinkedList.java src\project20280\stacksqueues\LinkedQueue.java src\project20280\stacksqueues\LinkedQueueTest.java
+java -cp "junit/lib/*;src" project20280.stacksqueues.LinkedQueue

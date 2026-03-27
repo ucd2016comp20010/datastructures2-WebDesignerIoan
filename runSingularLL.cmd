@@ -1,0 +1,2 @@
+javac -cp "junit/lib/*;" src\project20280\interfaces\*.java src\project20280\list\SinglyLinkedList.java src\project20280\list\SinglyLinkedListTest.java
+java -cp "junit/lib/*;src" project20280.list.SinglyLinkedList
