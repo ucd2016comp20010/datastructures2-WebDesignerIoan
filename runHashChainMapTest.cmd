@@ -1,0 +1,2 @@
+javac -cp "junit/lib/*;" src\project20280\interfaces\*.java src\project20280\hashtable\ChainHashMapTest.java src\project20280\hashtable\ChainHashMap.java src\project20280\hashtable\AbstractHashMap.java src\project20280\hashtable\UnsortedTableMap.java src\project20280\priorityqueue\DefaultComparator.java
+java -jar junit\lib\junit-platform-console-standalone-1.10.2.jar execute --class-path src --select-class project20280.hashtable.ChainHashMapTest
